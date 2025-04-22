@@ -1,0 +1,19 @@
+services:
+  mysql:
+    container_name: 'guide-mysql'
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_USER=springer'
+      - 'MYSQL_PASSWORD=secret'
+      - 'MYSQL_DATABASE=mydatabase'
+      - 'MYSQL_ROOT_PASSWORD=root'
+    ports:
+      - '3307:3306'
+
+
+
+    #volumes:                                 O volume vai deixar os dados antigos de login e senha, mas pode limpar antes de executar, resolve o problema !
+      #- mysql_data:/var/lib/mysql
+
+#volumes:
+  #mysql_data:
