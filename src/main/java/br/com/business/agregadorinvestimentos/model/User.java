@@ -35,5 +35,11 @@ public class User {
     @UpdateTimestamp
     private Instant updateTimestamp;
 
+    public User(String userName, String email, String password) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
+
 
 }

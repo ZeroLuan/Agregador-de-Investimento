@@ -1,21 +1,39 @@
 package br.com.business.agregadorinvestimentos.controller;
 
 import br.com.business.agregadorinvestimentos.model.User;
+import br.com.business.agregadorinvestimentos.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//Qaundo eu uso o Anottaion RestController digo o siguinte: “Essa classe vai responder requisições web e os métodos dela vão retornar dados, não páginas HTML.”
+import java.net.URI;
+import java.util.UUID;
+
+
+@Slf4j
 @RestController
-@RequestMapping("/v1/users")// Ele define que todos os EndPoints começarão com /v1/users ou seja, define o prefixo da URL a todos os Users
+@RequestMapping("/v1/users")
 public class UserController {
 
-    // Isso é um EndPoint, basicamente é uma URL + um verbo HTTP(GET,POST,PUT,DELETE) que representa uma função de sua API
-    @PostMapping // Completa apartir do prefixo comum que é o /v1/users, ficando /v1/users/hello
-    public ResponseEntity<User> createUser(@RequestBody String body){// @RequestBody ele pega a requisição que vem como JSON e transforma em um objeto Java
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
 
 
-        return null;
+    @PostMapping
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO){
+
+            UUID userId = userService.createUser(userRequestDTO);
+
+            log.info("\n✔ User Criado, ID: {}", userId);// Para melhor desempenho ("conteúdo {}", obj)
+
+        //@RequestBody → deve ser o DTO de entrada (UserRequestDTO)
+        //ResponseEntity<User> → pode trocar por ResponseEntity<UserResponseDTO> para não retornar dados sensíveis
+        //ResponseDTO é para responder, não para receber
+        return ResponseEntity.created(URI.create("/v1/users/" + userId.toString())).build();
     }
 
     @GetMapping("/{userId}")
