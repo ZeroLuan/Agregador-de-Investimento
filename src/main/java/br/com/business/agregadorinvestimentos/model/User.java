@@ -1,8 +1,9 @@
-package br.com.business.agregadorinvestimentos.entity;
+package br.com.business.agregadorinvestimentos.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -27,10 +28,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
+
     @CreationTimestamp
     private Instant creationTimestamp;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     private Instant updateTimestamp;
 
 
