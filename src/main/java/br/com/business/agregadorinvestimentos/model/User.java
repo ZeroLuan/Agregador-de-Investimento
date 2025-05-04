@@ -28,7 +28,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-
     @CreationTimestamp
     private Instant creationTimestamp;
 
@@ -40,6 +39,5 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
 
 }

@@ -15,6 +15,13 @@ package br.com.business.agregadorinvestimentos.controller;
     Uma vez criado, o DTO não precisa ser modificado → por isso, imutabilidade (característica do record) faz todo sentido !
 */
 
+import java.time.Instant;
+import java.util.UUID;
+
 // Responde para Saída
-public record UserResponseDTO(String userName, String email) {
+public record UserResponseDTO(UUID id, String userName, String email, Instant createdAt, Instant updatedAt) {
 }
+
+//@RequestBody → deve ser o DTO de entrada (UserRequestDTO)
+//ResponseEntity<User> → pode trocar por ResponseEntity<UserResponseDTO> para não retornar dados sensíveis
+//ResponseDTO é para responder, não para receber
