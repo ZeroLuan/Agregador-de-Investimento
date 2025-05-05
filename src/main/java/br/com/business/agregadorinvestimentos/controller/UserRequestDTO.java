@@ -9,9 +9,9 @@ package br.com.business.agregadorinvestimentos.controller;
     É mais limpa e enxuta
     Não permite mudanças nos campos (são "final" por padrão → imutabilidade)
 
-    Ideal pra DTOs
+    Ideal para DTOs
     DTOs são só "transportadores de dados", não têm lógica nem precisam ser alterados.
-    Os dados vêm do front e vão direto pro backend ou vice-versa.
+    Os dados vêm do front e vão direto para backend ou vice-versa.
     Uma vez criado, o DTO não precisa ser modificado → por isso, imutabilidade (característica do record).
 */
 
@@ -19,6 +19,7 @@ package br.com.business.agregadorinvestimentos.controller;
 public record UserRequestDTO(String userName, String email, String password) {
 }
 
-//@RequestBody → deve ser o DTO de entrada (UserRequestDTO)
-//ResponseEntity<User> → pode trocar por ResponseEntity<UserResponseDTO> para não retornar dados sensíveis
-//ResponseDTO é para responder, não para receber
+// DTO de requisição (entrada) utilizado para receber os dados enviados pelo cliente na criação ou atualização de um usuário.
+// @RequestBody deve utilizar o DTO de entrada (UserRequestDTO).
+// Não se usa RequestEntity<User> — o correto é receber os dados via @RequestBody com o DTO adequado.
+// UserRequestDTO é usado apenas para **receber** dados do cliente, não para responder.

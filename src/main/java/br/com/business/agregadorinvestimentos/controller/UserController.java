@@ -9,10 +9,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-
-@Slf4j
-@RestController// Indica que a Class é um Controller, porém um Controller REST, ele ira tratar requisições HTPP, e retorna respostas no formato Json.
+@RestController// <- Indica que a Class é um Controller, porém um Controller REST, ele ira tratar requisições HTPP, e retorna respostas no formato Json.
 @RequestMapping("/v1/users") // <- prefixo pra todos os endpoints.
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -24,7 +23,7 @@ public class UserController {
 
 
     @PostMapping("/createUser")
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO){ // RequestBody transfere dados do tipo Json para objeto
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO){ // <- RequestBody transfere dados do tipo Json para objeto
 
         log.info("✔ Recebida requisição para criar novo usuário.");
 
@@ -35,8 +34,8 @@ public class UserController {
         return ResponseEntity.created(URI.create("/v1/users/" + userId.toString())).build();
     }
 
-    @GetMapping("/{userId}") // Indica que um valor variável será esperado nesta parte da URL. O valor que estiver nessa posição será capturado e pode ser acessado através do parâmetro anotado com @PathVariable.
-    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable("userId") UUID userId){ // @PathVariable Quando o valor que você precisa vem diretamente na rota da URL, como em GET /users/5.
+    @GetMapping("/{userId}") // <- Indica que um valor variável será esperado nesta parte da URL. O valor que estiver nessa posição será capturado e pode ser acessado através do parâmetro anotado com @PathVariable.
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable("userId") UUID userId){ // <- @PathVariable Quando o valor que você precisa vem diretamente na rota da URL, como em GET /users/5.
 
         log.info("✔ Recebida requisição para pegar um usuário pelo ID.");
 
@@ -60,7 +59,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<Void> updateUserbyId(@PathVariable("userId") UUID userId, @RequestBody UserRequestDTO userRequestDTO){
+    public ResponseEntity<Void> updateUserById(@PathVariable("userId") UUID userId, @RequestBody UserRequestDTO userRequestDTO){
 
         log.info("✔ Recebida requisição para Atualizar um usuário pelo ID.");
 

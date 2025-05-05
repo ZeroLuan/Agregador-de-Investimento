@@ -6,6 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+/**
+ * Interface responsável pelo acesso aos dados da entidade User.
+ * Estende JpaRepository para fornecer operações padrão de CRUD e suporte a paginação e ordenação.
+ * A anotação @Repository permite que o Spring reconheça e gerencie essa interface como um componente de repositório.
+ **/
+
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
 
