@@ -9,8 +9,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-@RestController// <- Indica que a Class é um Controller, porém um Controller REST, ele ira tratar requisições HTPP, e retorna respostas no formato Json.
-@RequestMapping("/v1/users") // <- prefixo pra todos os endpoints.
+@RestController// Indica que a Class é um Controller, porém um Controller REST, ele ira tratar requisições, e retorna respostas no formato Json.
+@RequestMapping("/v1/users") // <- Prefixo pra todos os endpoints.
 @Slf4j
 public class UserController {
 
@@ -34,7 +34,7 @@ public class UserController {
         return ResponseEntity.created(URI.create("/v1/users/" + userId.toString())).build();
     }
 
-    @GetMapping("/{userId}") // <- Indica que um valor variável será esperado nesta parte da URL. O valor que estiver nessa posição será capturado e pode ser acessado através do parâmetro anotado com @PathVariable.
+    @GetMapping("/{userId}") //  Indica que um valor variável será esperado nesta parte da URL. O valor que estiver nessa posição será capturado e pode ser acessado através do parâmetro anotado com @PathVariable.
     public ResponseEntity<UserResponseDTO> getUserById(@PathVariable("userId") UUID userId){ // <- @PathVariable Quando o valor que você precisa vem diretamente na rota da URL, como em GET /users/5.
 
         log.info("✔ Recebida requisição para pegar um usuário pelo ID.");
