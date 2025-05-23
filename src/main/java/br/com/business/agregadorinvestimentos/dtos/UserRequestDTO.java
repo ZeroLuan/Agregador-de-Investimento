@@ -1,4 +1,4 @@
-package br.com.business.agregadorinvestimentos.controller;
+package br.com.business.agregadorinvestimentos.dtos;
 
 /*
     Por que usar record?
@@ -16,8 +16,22 @@ package br.com.business.agregadorinvestimentos.controller;
 */
 
 //Request para Entrada
-public record UserRequestDTO(String userName, String email, String password) {
-}
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public record UserRequestDTO(
+        @NotBlank(message = "O nome é obrigatório")// Garante que o campo não seja null, vazio ou só espaços.
+        String userName,
+
+        @Email(message = "Formato de email inválido")// Valida o formato de e-mail.
+        String email,
+
+        @Size(min = 3, message = "A senha deve ter pelo menos 6 caracteres")// Define um tamanho mínimo e/ou máximo para Strings, listas, etc.
+        String password
+) {}
+
 
 // DTO de requisição (entrada) utilizado para receber os dados enviados pelo cliente na criação ou atualização de um usuário.
 // @RequestBody deve utilizar o DTO de entrada (UserRequestDTO).

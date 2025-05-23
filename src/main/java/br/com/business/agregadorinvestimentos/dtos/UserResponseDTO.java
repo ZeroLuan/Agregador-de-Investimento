@@ -1,4 +1,4 @@
-package br.com.business.agregadorinvestimentos.controller;
+package br.com.business.agregadorinvestimentos.dtos;
 
 /*
     Por que usar record?
@@ -19,8 +19,13 @@ import java.time.Instant;
 import java.util.UUID;
 
 // Responde para Saída
-public record UserResponseDTO(UUID id, String userName, String email, Instant createdAt, Instant updatedAt) {
-}
+public record UserResponseDTO(
+        UUID id,
+        String userName,
+        String email,
+        Instant createdAt,
+        Instant updatedAt
+) {}
 
 // DTO de resposta (saída) utilizado para retornar dados do usuário sem expor informações sensíveis, como a senha.
 // @RequestBody deve utilizar o DTO de entrada (UserRequestDTO).

@@ -1,7 +1,7 @@
 package br.com.business.agregadorinvestimentos.service;
 
-import br.com.business.agregadorinvestimentos.controller.UserRequestDTO;
-import br.com.business.agregadorinvestimentos.controller.UserResponseDTO;
+import br.com.business.agregadorinvestimentos.dtos.UserRequestDTO;
+import br.com.business.agregadorinvestimentos.dtos.UserResponseDTO;
 import br.com.business.agregadorinvestimentos.mapper.UserMapper;
 import br.com.business.agregadorinvestimentos.model.User;
 import br.com.business.agregadorinvestimentos.repository.UserRepository;

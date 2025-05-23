@@ -1,6 +1,9 @@
 package br.com.business.agregadorinvestimentos.controller;
 
+import br.com.business.agregadorinvestimentos.dtos.UserRequestDTO;
+import br.com.business.agregadorinvestimentos.dtos.UserResponseDTO;
 import br.com.business.agregadorinvestimentos.service.UserService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,7 @@ public class UserController {
 
 
     @PostMapping("/createUser")
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO){ // <- RequestBody transfere dados do tipo Json para objeto
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserRequestDTO userRequestDTO){ // RequestBody transfere dados do tipo Json para objeto, @Valid Validação em camada de apresentação ou de entrada
 
         log.info("✔ Recebida requisição para criar novo usuário.");
 
@@ -31,7 +34,7 @@ public class UserController {
 
         log.info("✔ Usuário Criado, ID: {}", userId);// Para melhor desempenho ("conteúdo {}", obj)
 
-        return ResponseEntity.created(URI.create("/v1/users/" + userId.toString())).build();
+        return ResponseEntity.created(URI.create("/v1/users/" + userId.toString())).build();//ResponseEntity vai retornar a situação nmr e vai gerar o URI no cabeçalho
     }
 
     @GetMapping("/{userId}") //  Indica que um valor variável será esperado nesta parte da URL. O valor que estiver nessa posição será capturado e pode ser acessado através do parâmetro anotado com @PathVariable.
