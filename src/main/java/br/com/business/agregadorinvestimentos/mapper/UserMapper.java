@@ -20,7 +20,8 @@ UserMapper {
                 user.getUserName(),
                 user.getEmail(),
                 user.getCreationTimestamp(),
-                user.getUpdateTimestamp()
+                user.getUpdateTimestamp(),
+                user.getAccounts()
         );
     }
 

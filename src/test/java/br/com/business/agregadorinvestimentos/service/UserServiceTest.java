@@ -2,6 +2,7 @@ package br.com.business.agregadorinvestimentos.service;
 
 import br.com.business.agregadorinvestimentos.dtos.UserRequestDTO;
 import br.com.business.agregadorinvestimentos.dtos.UserResponseDTO;
+import br.com.business.agregadorinvestimentos.model.Account;
 import br.com.business.agregadorinvestimentos.model.User;
 import br.com.business.agregadorinvestimentos.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +18,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -49,6 +52,8 @@ class UserServiceTest {
     // para poder organizar melhor os nossos testes
 
 
+    List<Account> accounts = null;
+
 
     @Nested // Permite criar uma classe interna dentro da classe de testes
     class CreateUser{
@@ -57,7 +62,6 @@ class UserServiceTest {
         @DisplayName("Should create a user with success")// Para ficar mais bonito nos Logs forma de documentar, convenção
         void shouldCreateAUserWithSuccess(){
 
-
             // Arrange - Arrumar/Organizer o teste
             User user = new User(
                     UUID.randomUUID(),
@@ -65,7 +69,8 @@ class UserServiceTest {
                     "email@email.com",
                     "123",
                     Instant.now(),
-                    null
+                    null,
+                    accounts
             );
 
             //o retorno deve ser um (user).quando(userRepository).save(Captura o argumento do método save)
@@ -132,7 +137,8 @@ class UserServiceTest {
                     "email@email.com",
                     "123",
                     Instant.now(),
-                    null
+                    null,
+                    accounts
             );
 
             doReturn(Optional.of(user)).when(userRepository).findById(uuidArgumentCaptor.capture());

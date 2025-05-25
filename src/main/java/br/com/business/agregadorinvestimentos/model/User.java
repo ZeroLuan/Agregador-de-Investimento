@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -56,6 +57,12 @@ public class User {
      */
     @UpdateTimestamp
     private Instant updateTimestamp;
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Account> accounts;
+
+
 
     /**
      * Construtor personalizado para criação de usuário com nome, email e senha.

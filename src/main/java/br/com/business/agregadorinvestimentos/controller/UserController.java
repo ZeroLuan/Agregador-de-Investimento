@@ -17,6 +17,7 @@ import java.util.UUID;
 @Slf4j
 public class UserController {
 
+    // O IntelliJ sugere usar injeção via construtor, que é mais segura e testável, ao invés de @Autowired
     private final UserService userService;
 
     public UserController(UserService userService) {

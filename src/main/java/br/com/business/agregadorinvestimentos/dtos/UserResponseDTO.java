@@ -15,7 +15,10 @@ package br.com.business.agregadorinvestimentos.dtos;
     Uma vez criado, o DTO não precisa ser modificado → por isso, imutabilidade (característica do record).
 */
 
+import br.com.business.agregadorinvestimentos.model.Account;
+
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 // Responde para Saída
@@ -24,7 +27,8 @@ public record UserResponseDTO(
         String userName,
         String email,
         Instant createdAt,
-        Instant updatedAt
+        Instant updatedAt,
+        List<Account> account
 ) {}
 
 // DTO de resposta (saída) utilizado para retornar dados do usuário sem expor informações sensíveis, como a senha.
