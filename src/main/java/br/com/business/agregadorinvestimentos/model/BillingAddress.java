@@ -1,5 +1,6 @@
 package br.com.business.agregadorinvestimentos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,19 +16,20 @@ import java.util.UUID;
 public class BillingAddress {
 
     @Id
-    @Column(name = "account_id") // Mesmo nome do atributo account
+    @Column(name = "account_id") // Mesmo id do atributo account
     private UUID id;
-
-    @OneToOne
-    @MapsId // Garante que via pegar o identificador e colocar no atributo id logo a cima
-    @JoinColumn(name = "account_id")
-    private Account account;
 
     @Column(name = "street")
     private String street;
 
     @Column(name = "number")
     private Integer number;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @MapsId // Garante que via pegar o identificador e colocar no atributo id logo a cima
+    @JsonIgnore // Adicione esta anotação para evitar a recursão infinita
+    @JoinColumn(name = "account_id")
+    private Account account;
 
 
 }

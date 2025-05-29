@@ -1,5 +1,7 @@
 package br.com.business.agregadorinvestimentos.controller;
 
+import br.com.business.agregadorinvestimentos.dtos.AccountRequestDTO;
+import br.com.business.agregadorinvestimentos.dtos.AccountResponseDTO;
 import br.com.business.agregadorinvestimentos.dtos.UserRequestDTO;
 import br.com.business.agregadorinvestimentos.dtos.UserResponseDTO;
 import br.com.business.agregadorinvestimentos.service.UserService;
@@ -85,6 +87,30 @@ public class UserController {
         log.info("✔ Usuário Deletado.");
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{userId}/accounts")
+    public ResponseEntity<Void> createAccount(@PathVariable("userId") String userId, @RequestBody AccountRequestDTO accountRequestDTO){
+
+        log.info("✔ Recebida requisição para criar uma conta usando id do Usuário e DTO de account.");
+
+        userService.createAccount(userId, accountRequestDTO);
+
+        log.info("✔ Conta Criada.");
+
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{userId}/accounts")
+    public ResponseEntity<List<AccountResponseDTO>> getAllAccounts(@PathVariable("userId") String userId){
+
+        log.info("✔ Recebida requisição para pegar uma conta pelo ID.");
+
+        List<AccountResponseDTO> account = userService.getAllAccounts(userId);
+
+        log.info("✔ Conta Encontrada.");
+
+        return ResponseEntity.ok(account);
     }
 
 }

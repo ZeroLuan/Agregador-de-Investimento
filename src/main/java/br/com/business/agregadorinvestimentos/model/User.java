@@ -1,5 +1,6 @@
 package br.com.business.agregadorinvestimentos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -60,6 +61,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore // Adicione esta anotação para evitar a recursão infinita
     private List<Account> accounts;
 
 

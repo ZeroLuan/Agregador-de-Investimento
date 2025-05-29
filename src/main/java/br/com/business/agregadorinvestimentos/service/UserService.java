@@ -1,9 +1,16 @@
 package br.com.business.agregadorinvestimentos.service;
 
+import br.com.business.agregadorinvestimentos.dtos.AccountRequestDTO;
+import br.com.business.agregadorinvestimentos.dtos.AccountResponseDTO;
 import br.com.business.agregadorinvestimentos.dtos.UserRequestDTO;
 import br.com.business.agregadorinvestimentos.dtos.UserResponseDTO;
+import br.com.business.agregadorinvestimentos.mapper.AccountMapper;
 import br.com.business.agregadorinvestimentos.mapper.UserMapper;
+import br.com.business.agregadorinvestimentos.model.Account;
+import br.com.business.agregadorinvestimentos.model.BillingAddress;
 import br.com.business.agregadorinvestimentos.model.User;
+import br.com.business.agregadorinvestimentos.repository.AccountRepository;
+import br.com.business.agregadorinvestimentos.repository.BillingAddressRepository;
 import br.com.business.agregadorinvestimentos.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,10 +23,19 @@ import java.util.UUID;
 @Service
 public class UserService {
 
+
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+
+    private final AccountRepository accountRepository;
+
+
+    private final BillingAddressRepository billingAddressRepository;
+
+    public UserService(UserRepository userRepository, AccountRepository accountRepository, BillingAddressRepository billingAddressRepository) {
         this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
+        this.billingAddressRepository = billingAddressRepository;
     }
 
 
@@ -80,5 +96,49 @@ public class UserService {
     }
 
 
+    public void createAccount(String userId, AccountRequestDTO accountRequestDTO) {
 
+        User user = userRepository.findById(UUID.fromString(userId))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        // Cria uma nova Account (sem billingAddress ainda)
+        Account account = new Account(
+                null,
+                user,
+                null,
+                accountRequestDTO.description(),
+                new ArrayList<>()
+        );
+
+        // Cria o BillingAddress (sem salvar ainda)
+        BillingAddress billingAddress = new BillingAddress();
+
+        billingAddress.setStreet(accountRequestDTO.street());
+        billingAddress.setNumber(accountRequestDTO.number());
+        billingAddress.setAccount(account); // associa Account à BillingAddress
+
+        account.setBillingAddress(billingAddress); // associa BillingAddress à Account
+
+        // Salva apenas a account, o cascade ALL cuidará de salvar o BillingAddress
+        accountRepository.save(account);
+
+
+    }
+
+
+    public List<AccountResponseDTO> getAllAccounts(String userId) {
+
+        User user = userRepository.findById(UUID.fromString(userId))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        List<Account> accounts = user.getAccounts();
+
+        List<AccountResponseDTO> accountResponseDTOs = new ArrayList<>();
+
+        for(Account account : accounts){
+            accountResponseDTOs.add(AccountMapper.toResponse(account));
+        }
+
+        return accountResponseDTOs;
+    }
 }

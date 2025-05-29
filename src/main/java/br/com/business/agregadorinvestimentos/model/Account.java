@@ -18,13 +18,13 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID account_id;
+    private UUID accountId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(mappedBy = "account")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "account")
     @PrimaryKeyJoinColumn // Passa a Chave primaria de account para BillingAddress
     private BillingAddress billingAddress;
 
@@ -35,4 +35,9 @@ public class Account {
     private List<AccountStock> accountStocks;
 
 
+    // A necessidade desse construtor é por contra do AccountMaper, que não consegue instanciar um Account sem um BillingAddress.
+    public Account(String description, String street, Integer number) {
+        this.description = description;
+        this.billingAddress = new BillingAddress(accountId, street, number, this);
+    }
 }

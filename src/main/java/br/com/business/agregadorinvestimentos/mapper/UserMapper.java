@@ -4,13 +4,13 @@ import br.com.business.agregadorinvestimentos.dtos.UserRequestDTO;
 import br.com.business.agregadorinvestimentos.dtos.UserResponseDTO;
 import br.com.business.agregadorinvestimentos.model.User;
 
-public class
-UserMapper {
+public class UserMapper {
 
     public static User toEntity(UserRequestDTO dto) {
-        return new User(dto.userName(),
-                        dto.email(),
-                        dto.password()
+        return new User(
+                dto.userName(),
+                dto.email(),
+                dto.password()
         );
     }
 
