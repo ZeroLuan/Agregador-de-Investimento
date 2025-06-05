@@ -1,5 +1,6 @@
 package br.com.business.agregadorinvestimentos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,16 +19,17 @@ public class AccountStock {
     private AccountStockId id;
 
     @ManyToOne
-    @MapsId("stockId")
+    @JoinColumn(name = "account_id")
+    @MapsId("accountId")
+    @JsonIgnore
+    private Account account;
+
+    @ManyToOne
     @JoinColumn(name = "stock_id")
+    @MapsId("stockId")
     private Stock stock;
 
     @Column(name = "quantity")
     private Integer quantity;
-
-    @ManyToOne
-    @MapsId("accountId")
-    @JoinColumn(name = "account_id")
-    private Account account;
 
 }

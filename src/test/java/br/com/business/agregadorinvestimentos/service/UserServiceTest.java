@@ -4,7 +4,7 @@ import br.com.business.agregadorinvestimentos.dtos.UserRequestDTO;
 import br.com.business.agregadorinvestimentos.dtos.UserResponseDTO;
 import br.com.business.agregadorinvestimentos.model.Account;
 import br.com.business.agregadorinvestimentos.model.User;
-import br.com.business.agregadorinvestimentos.repository.UserRepository;
+import br.com.business.agregadorinvestimentos.repository.IUserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,7 +35,7 @@ class UserServiceTest {
     // Assert - (Afirmação) Verificar se ele chamou tudo como deveria
 
     @Mock // Para não depender de dependências exteriores, um objeto falso da classe informada
-    private UserRepository userRepository;
+    private IUserRepository userRepository;
 
     @InjectMocks // Cria o objeto real e injeta os mocks, Para injetar o Mock dentro da service, e criar a instancia dela.
     private UserService userService;

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface AccountStockRepository extends JpaRepository<AccountStock, AccountStockId> {
+public interface IAccountStockRepository extends JpaRepository<AccountStock, AccountStockId> {
 }

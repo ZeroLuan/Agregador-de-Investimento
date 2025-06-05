@@ -18,6 +18,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "account_id")
     private UUID accountId;
 
     @ManyToOne

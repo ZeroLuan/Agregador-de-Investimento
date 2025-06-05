@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Embeddable // Vai poder utilizar essa classe como um campo de identificador dentro de nossa entidade
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Embeddable // Vai poder utilizar essa classe como um campo de identificador dentro de nossa entidade
 public class AccountStockId {
 
     @Column(name = "account_id")

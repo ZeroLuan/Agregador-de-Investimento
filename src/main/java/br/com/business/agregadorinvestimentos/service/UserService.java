@@ -9,9 +9,9 @@ import br.com.business.agregadorinvestimentos.mapper.UserMapper;
 import br.com.business.agregadorinvestimentos.model.Account;
 import br.com.business.agregadorinvestimentos.model.BillingAddress;
 import br.com.business.agregadorinvestimentos.model.User;
-import br.com.business.agregadorinvestimentos.repository.AccountRepository;
-import br.com.business.agregadorinvestimentos.repository.BillingAddressRepository;
-import br.com.business.agregadorinvestimentos.repository.UserRepository;
+import br.com.business.agregadorinvestimentos.repository.IAccountRepository;
+import br.com.business.agregadorinvestimentos.repository.IBillingAddressRepository;
+import br.com.business.agregadorinvestimentos.repository.IUserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,15 +24,15 @@ import java.util.UUID;
 public class UserService {
 
 
-    private final UserRepository userRepository;
+    private final IUserRepository userRepository;
 
 
-    private final AccountRepository accountRepository;
+    private final IAccountRepository accountRepository;
 
 
-    private final BillingAddressRepository billingAddressRepository;
+    private final IBillingAddressRepository billingAddressRepository;
 
-    public UserService(UserRepository userRepository, AccountRepository accountRepository, BillingAddressRepository billingAddressRepository) {
+    public UserService(IUserRepository userRepository, IAccountRepository accountRepository, IBillingAddressRepository billingAddressRepository) {
         this.userRepository = userRepository;
         this.accountRepository = accountRepository;
         this.billingAddressRepository = billingAddressRepository;
@@ -99,7 +99,8 @@ public class UserService {
     public void createAccount(String userId, AccountRequestDTO accountRequestDTO) {
 
         User user = userRepository.findById(UUID.fromString(userId))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Usuário não encontrado com o ID: " + userId));
 
         // Cria uma nova Account (sem billingAddress ainda)
         Account account = new Account(
