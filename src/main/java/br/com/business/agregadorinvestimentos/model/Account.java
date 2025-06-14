@@ -32,7 +32,7 @@ public class Account {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account")     // Verificar o relacionamento !!!
     private List<AccountStock> accountStocks;
 
 
