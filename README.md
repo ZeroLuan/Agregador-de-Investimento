@@ -53,4 +53,4 @@ Licença
 Este projeto está licenciado sob a [Licença Apache 2.0].
 
 Contato
-Para mais informações ou dúvidas, entre em contato pelo e-mail: 20232ireads0017@ifba.edu.br
+Para mais informações ou dúvidas, entre em contato pelo e-mail: alvesluanpc@gmail.com
